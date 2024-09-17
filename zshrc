@@ -134,3 +134,26 @@ else
 echo "Usage: zz_count_char <string>"
 fi
 }
+
+zz_cert_validity()
+{
+local __expiration_date
+local __now_epoch="$(date +%s)"
+if [ ! -z ${1} ]
+then
+echo "---- ${1} ----"
+__expiration_date=$(LANG=en_US.UTF-8 date -j -f "%b %d %T %Y %Z" \
+                    "$(echo "Q" | openssl s_client -connect ${1}:443 -servername ${1} 2>/dev/null | \
+                    openssl x509 -dates -noout |grep "notAfter" |cut -d'=' -f2)" +"%s")
+__days_left=$(( (${__expiration_date} / 86400 ) - (${__now_epoch} / 86400 ) ))
+if [ $__days_left -lt 30 ]
+then
+echo "[WARNING] Certificate expiration: $(date -r ${__expiration_date})"
+else
+echo "[OK] Certificate expiration: $(date -r ${__expiration_date})"
+fi
+echo -e
+else
+echo "Usage: zz_cert_validity <website>"
+fi
+}
