@@ -120,7 +120,7 @@ fi
 zz_hex_string()
 {
 local __str=$(openssl rand -hex 32)
-echo "cleartext string : ${_pass}"
+echo "cleartext string : ${__str}"
 echo "SHA256 string    : "$(echo -n "${__str}" | shasum -a 256)
 unset __str
 }
