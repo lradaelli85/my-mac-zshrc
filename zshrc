@@ -21,9 +21,9 @@ alias ansible-lint="/Users/my-user/work/ansible-venv/bin/ansible-lint"
 
 #### Autocomplete
 
-autoload -U compinit
-compinit
 fpath=( $HOME/site-functions $fpath )
+autoload -Uz compinit
+compinit
 
 #### Env Var
 
