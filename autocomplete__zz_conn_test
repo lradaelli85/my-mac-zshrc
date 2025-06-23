@@ -1,0 +1,8 @@
+#compdef zz_conn_test
+
+_zz_conn_test() {
+if (( CURRENT == 2 ))
+then
+. /$fpath[-1]/host_autocomplete
+fi
+}
