@@ -1,0 +1,12 @@
+  local -a hosts
+
+  local config_hosts
+  config_hosts=("${(@f)$(awk '/^Host / {for (i=2; i<=NF; i++) if ($i !~ /\*/) print $i}' ~/.ssh/config 2>/dev/null)}")
+
+  local known_hosts
+  known_hosts=("${(@f)$(cut -f1 -d' ' ~/.ssh/known_hosts 2>/dev/null | sed 's/,.*//g' | sort -u)}")
+
+  hosts=("${config_hosts[@]}" "${known_hosts[@]}")
+  hosts=("${(u)hosts[@]}")
+
+  _describe -t hosts 'SSH hosts' hosts
