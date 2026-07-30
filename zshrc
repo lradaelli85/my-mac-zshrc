@@ -32,7 +32,7 @@ PATH="$PATH:$HOME/bin:$HOME/Library/Python/3.9/bin:/opt/podman/bin"
 #### PS1
 if [ "${TERM}" = "xterm-256color" ]
   then
-    PS1="%(?.✅.❌ %F{red}%?%f) %(!.%F{red}%n%F{white}@%F{red}localhost %F{magenta}%~ %F{cyan}$%f .%F{green}%n%F{magenta}@%F{green}localhost %F{magenta}%~ %F{cyan}$%f "
+    PROMPT='%F{blue}┌─%f%(?.✅.❌ %F{red}%?%f) %F{magenta}[%j]%f %F{blue}[%F{cyan}%n%F{magenta}@%F{green}%m%F{blue}] %F{blue}[%F{yellow}%~%f%F{blue}]'$'\n''%F{blue}└─%F{cyan}$%f '
 fi
 
 #### Functions
@@ -59,8 +59,7 @@ dig +short myip.opendns.com @resolver1.opendns.com
 
 zz_gen_pass()
 {
-local __pass_lenght=16
-cat /dev/urandom | LC_CTYPE=C LANG=C tr -dc 'A-Za-z0-9!#$%&()*+,-./:;<=>?@[\]^_{|}~' | tr -s 'A-Za-z0-9' | fold -w ${__pass_lenght}  |head -n 16
+cat /dev/urandom | LC_CTYPE=C LANG=C tr -dc 'A-Za-z0-9!#$%&*+-.?@_' | fold -w48  |head -n 1 |fold -w1 |awk '!seen[$0]++' | tr -d '\n' ; echo
 }
 
 zz_web_search()
