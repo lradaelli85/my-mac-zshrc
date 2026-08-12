@@ -113,7 +113,7 @@ fi
 zz_listen_ports()
 {
 echo "Listening Ports"
-sudo netstat -nautpl
+sudo ss -nautpl
 }
 
 zz_connections_list()
